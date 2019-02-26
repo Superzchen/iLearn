@@ -68,13 +68,13 @@ python iLearn-ML-SVM.py --train examples/DNA_code_training.txt --indep examples/
 ### Example 4, Descriptor and Manchine Learning algorithm Performance Evaluation
 For a prediction task, the iLearn package can select out the descriptor with the best performance by using the ‘iLearn-descriptor-estimater.py’.
 ```sh
-python iLearn-descriptor-estimater.py --config
+python iLearn-descriptor-estimater.py --config config.txt
 ```
 
 ### Example 5, *iLearn* pipeline
 All the individual functionalities in iLearn can be implemented as a pipeline by using the ‘iLearn-auto-pipeline.py’ script.
 ```sh
-python iLearn-auto-pipline.py --config
+python iLearn-auto-pipline.py --config config.txt
 ```
 
 For more examples and advanced usage of *iLearn*, please refer the iLearnManual.pdf for more help.
