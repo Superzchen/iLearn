@@ -3,6 +3,7 @@
 
 __all__ = [
     'kmeans',
+    'gmm',
     'hcluster',
     'apc',
     'meanshift',
