@@ -37,7 +37,7 @@ The input for *iLearn* is a set of DNA, RNA or protein sequences in a special FA
 ### Example 1, Extracting Descriptors for DNA Sequences
 Running the following command to obtain the `Kmer` descriptor:
 ```sh
-python descnucleotide/Kmer.py --file examples/DNA_training.txt --kmer 3 --upto --normalize --format csv
+python iLearn-nucleotide-basic.py --file examples/DNA_training.txt --method Kmer --format svm
 ```
 Generally, users can get the parameters by specifying the parameter '--help'
 
