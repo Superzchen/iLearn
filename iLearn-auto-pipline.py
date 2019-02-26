@@ -20,14 +20,14 @@ if __name__ == '__main__':
     parser.add_argument("--config", default='config.txt', help="the config file")
     args = parser.parse_args()
 
-    ## read config
+    # read config
     parameters = read_config.read_config(args.config)
     if parameters['Sequence_Type'] == 'Protein':
         from descproteins import *
     else:
         from descnucleotide import *
 
-    ## commands for encoding
+    # commands for encoding
     dna_cmd_coding = {
         'Kmer': ['Kmer.Kmer(training_data, k=%s, **kw)' % parameters['Kmer_Size'], 'Kmer.Kmer(testing_data, k=%s, **kw)' % parameters['Kmer_Size']],
         'RCKmer': ['RCKmer.RCKmer(training_data, k=%s, **kw)' % parameters['Kmer_Size'], 'RCKmer.RCKmer(testing_data, k=%s, **kw)' % parameters['Kmer_Size']],
@@ -108,10 +108,10 @@ if __name__ == '__main__':
         'type16': ['type16.type1(training_data, "%s", %d, %d, %d)' %(parameters['PseKRAAC_Model'], int(parameters['RAACCluster16']), int(parameters['Ktuple']), int(parameters['GapLamada'])), 'type16.type1(testing_data, "%s", %d, %d, %d)' %(parameters['PseKRAAC_Model'], int(parameters['RAACCluster16']), int(parameters['Ktuple']), int(parameters['GapLamada']))],
     }
 
-    ## Error information
+    # Error information
     error_array = []
 
-    ## read fasta sequence and specify cmd
+    # read fasta sequence and specify cmd
     fastas = []
     cmd_coding = {}
     if parameters['Sequence_Type'] in ('DNA', 'RNA'):
@@ -126,7 +126,7 @@ if __name__ == '__main__':
     kw = {'nclusters': 3, 'sof': 'sample', 'order': ''}
     kw['order'] = 'ACGT' if parameters['Sequence_Type'] == 'DNA' or parameters['Sequence_Type'] == 'RNA' else 'ACDEFGHIKLMNPQRSTVWY'
 
-    ## divide training and testing data
+    # divide training and testing data
     training_data = []
     testing_data = []
     PSTNP_training_data = []
@@ -141,28 +141,28 @@ if __name__ == '__main__':
             testing_data.append(sequence)
             PSTNP_testing_data.append(sequence)
 
-    ## get property for AAindex, NMBroto, Geary, Moran
+    # get property for AAindex, NMBroto, Geary, Moran
     props = parameters['AAindex'].split(';') if parameters['AAindex'] != '' else ['CIDH920105', 'BHAR880101',
                                                                                   'CHOC760101', 'BIGC670101',
                                                                                   'CHAM810101', 'DAYM780201']
 
 
-    ## get property for ACC descriptors and Pse descriptors
+    # get property for ACC descriptors and Pse descriptors
     my_property_name, my_property_value, my_kmer, my_lamada, my_weight = 0, 0, 0, 0, 0
 
-    ## calculate descriptor for training data
+    # calculate descriptor for training data
     training_code_dict = {}
     testing_code_dict = {}
     method_array = parameters['Method'].split(';')
     for method in method_array:
-        ## before extract these 12 descriptor, the property need be extracted
+        # before extract these 12 descriptor, the property need be extracted
         if method in ('DAC', 'DCC', 'DACC', 'TAC', 'TCC', 'TACC'):
             my_property_name, my_property_value, my_kmer = check_parameters.check_acc_arguments_pipeline(parameters,
                                                                                                          method)
         if method in ('PseDNC', 'PseKNC', 'PCPseDNC', 'PCPseTNC', 'SCPseDNC', 'SCPseTNC'):
             my_property_name, my_property_value, my_lamada, my_weight = check_parameters.check_Pse_arguments_pipeline(
                 parameters, method, fastas)
-        ## calculate descriptors
+        # calculate descriptors
         training_code_dict[method] = eval(cmd_coding[method][0])
         if len(testing_data) > 0:
             testing_code_dict[method] = eval(cmd_coding[method][1])
@@ -192,7 +192,7 @@ if __name__ == '__main__':
         save_file.save_file(testing_code, format=parameters['Output_Format'], file='testing_code.txt')
         save_file.save_file(testing_code, format='tsv_1', file='testing_code_1.tsv')
 
-    ## clustering for training data
+    # clustering for training data
     kw['sof'] = parameters['Clustering_Type'] if parameters['Clustering_Type'] != '' else 'sample'
     kw['nclusters'] = parameters['Kmean_Cluster_Number'] if parameters['Kmean_Cluster_Number'] else 2
     if parameters['Clustering_Algorithm'] in ('kmeans', 'hcluster', 'apc', 'meanshift', 'dbscan'):
@@ -205,7 +205,7 @@ if __name__ == '__main__':
         if e != '':
             error_array.append(e)
 
-    #### prepare data for feature normalization, selection and dimension reduction
+    # prepare data for feature normalization, selection and dimension reduction
     training_code_file = 'training_code.txt'
     testing_code_file = 'testing_code.txt'
     training_code_used, training_labels = read_code.read_code(training_code_file, format=parameters['Output_Format'])
@@ -213,7 +213,7 @@ if __name__ == '__main__':
     if len(testing_data) > 0:
         testing_code_used, testing_labels = read_code.read_code(testing_code_file, format=parameters['Output_Format'])
 
-    ## feature normalization
+    # feature normalization
     training_code_normalized = []
     testing_code_normalized = []
     if parameters['Feature_Normalization_Algorithm'] != '' and parameters['Feature_Normalization_Algorithm'] in ('ZScore, MinMax'):
@@ -232,7 +232,7 @@ if __name__ == '__main__':
                                 file='testing_code_normalized.txt')
             testing_code_file = 'testing_code_normalized.txt'
 
-    ## feature selection
+    # feature selection
     training_code_selected = []
     testing_code_selected = []
     if parameters['Feature_Selection_Algorithm'] != '' and parameters['Feature_Selection_Algorithm'] in (
@@ -260,7 +260,7 @@ if __name__ == '__main__':
             save_file.save_file(testing_code_selected, parameters['Output_Format'], 'testing_code_selected.txt')
             testing_code_file = 'testing_code_selected.txt'
 
-    ## dimension reduction
+    # dimension reduction
     if parameters['Dimension_Reduction_Algorithm'] != '' and parameters['Dimension_Reduction_Algorithm'] in ('pca', 'lda', 'tsne'):
         training_code_used, training_labels = read_code.read_code(training_code_file,
                                                                   format=parameters['Output_Format'])
@@ -286,7 +286,7 @@ if __name__ == '__main__':
         if n_components >= 3:
             draw_plot.plot_3d(training_code_reduced, training_labels, file='training_dimension_reduction_3d.png')
 
-    ## machine learning
+    # machine learning
     ML_array = parameters['ML'].split(';')
     if parameters['ML'] != '' and parameters['Validation'] != '':
         X, y, independent = 0, 0, np.array([])
@@ -416,7 +416,7 @@ if __name__ == '__main__':
                 cv_metrics = calculate_prediction_metrics.calculate_metrics_cv_muti(cv_res, classes, label_column=0)
                 save_file.save_prediction_metrics_cv_muti(cv_metrics, classes, '%s_metrics_CV.txt' % ML)
 
-                ## calculate mean acc
+                # calculate mean acc
                 mean_acc = 0
                 for res in cv_metrics:
                     for c in classes:
@@ -437,7 +437,7 @@ if __name__ == '__main__':
                     best_ML = ML
             print('The model with best performance is : %s' %best_ML)
 
-    ## ensemble learning
+    # ensemble learning
     if len(ML_array) >= 2 and parameters['Ensemble'].upper() == 'YES':
         fold = parameters['Validation'] if parameters['Validation'] != '' else 5
         ML_combinations = []

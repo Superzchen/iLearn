@@ -10,7 +10,7 @@ if __name__ == '__main__':
                                      description="cluster for the generated numerical representation")
     parser.add_argument("--file", required=True, help="input encoding file")
     parser.add_argument("--method", required=True,
-                        choices=['kmeans', 'hcluster', 'apc', 'meanshift', 'dbscan'], help="select cluster method")
+                        choices=['kmeans', 'gmm', 'hcluster', 'apc', 'meanshift', 'dbscan'], help="select cluster method")
     parser.add_argument("--sof", default='sample', choices=['sample', 'feature'],
                         help="cluster for sample or feature, default: sample")
     parser.add_argument("--nclusters", help="specify the cluster number for kmeans cluster method. default: 3")
