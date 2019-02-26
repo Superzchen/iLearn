@@ -62,7 +62,7 @@ python iLearn-dimension-reduction.py --file examples/DNA_code_testing.txt --meth
 ### Example 3, Predictor Construction Using *iLearn*
 Support Vector Machine (SVM) algorithm
 ```sh
-python iLearn-ML-SVM.py --train examples/DNA_code_training.txt --indep examples/DNA_code_testing.txt --format svm --batch 0.5 --out SVM
+python iLearn-ML-SVM.py --train examples/DNA_code_training.txt --indep examples/DNA_code_testing.txt --auto --format svm --batch 0.5 --out SVM
 ```
 
 ### Example 4, Descriptor and Manchine Learning algorithm Performance Evaluation
