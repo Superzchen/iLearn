@@ -79,7 +79,7 @@ python iLearn-auto-pipline.py --config
 
 For more examples and advanced usage of *iLearn*, please refer the iLearnManual.pdf for more help.
 
-### Citation：
+# Citation：
 If you find *iFeature* useful, please kindly cite the following paper:
 
 Chen Z, Zhao P, Li F, Leier A, Marquez-Lago TT, Leier A, Webb GI, Revote J, Powell DR, Akutsu T, Webb GI, Smith AI, Daly RJ* , Chou KC* , Song J* . *iLearn*: an integrated platform and meta-learner for feature engineering and machine learning analysis and modeling of DNA, RNA and protein sequence data. 2019, submitted for publication.
