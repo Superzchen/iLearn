@@ -1,5 +1,5 @@
 ## Input file information
-Sequence_File=test/sequence2.txt
+Sequence_File=examples/example.txt
 Sequence_Type=RNA
 
 ## Descriptor method
@@ -78,7 +78,7 @@ Dimension_Reduction_Algorithm=pca
 Dimension_Reduction_Number=3
 
 ## Model construction (SVM, RF, LR, KNN, MLP)
-ML=SVM;RF;LR;KNN;MLP
+ML=SVM;RF
 
 # Parameters for SVM
 Kernel=rbf
