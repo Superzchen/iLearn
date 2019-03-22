@@ -65,7 +65,7 @@ Support Vector Machine (SVM) algorithm
 python iLearn-ML-SVM.py --train examples/DNA_code_training.txt --indep examples/DNA_code_testing.txt --auto --format svm --batch 0.5 --out SVM
 ```
 
-### Example 4, Descriptor and Manchine Learning algorithm Performance Evaluation
+### Example 4, Descriptor and Machine Learning algorithm Performance Evaluation
 For a prediction task, the iLearn package can select out the descriptor with the best performance by using the ‘iLearn-descriptor-estimater.py’.
 ```sh
 python iLearn-descriptor-estimater.py --config config.txt
