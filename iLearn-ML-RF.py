@@ -57,7 +57,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(usage="it's usage tip.", description="training RF model.")
     parser.add_argument("--train", required=True, help="input training coding file")
     parser.add_argument("--indep", help="independent coding file")
-    parser.add_argument("--format", choices=['tsv', 'svm', 'csv', 'weka'], default='tab',
+    parser.add_argument("--format", choices=['tsv', 'svm', 'csv', 'weka'], default='tsv',
                         help="input file format (default tab format)")
     parser.add_argument("--n_trees", type=int, default=100, help="the number of trees in the forest (default 100)")
     parser.add_argument("--fold", type=int, default=5,
