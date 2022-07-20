@@ -41,8 +41,8 @@ def read_protein_sequences(file):
         header, sequence = array[0].split()[0], re.sub('[^ACDEFGHIKLMNPQRSTVWY-]', '-', ''.join(array[1:]).upper())
         header_array = header.split('|')
         name = header_array[0]
-        label = header_array[1] if len(header_array) >= 1 else '0'
-        label_train = header_array[2] if len(header_array) >= 2 else 'training'
+        label = header_array[1] if len(header_array) >= 2 else '0'
+        label_train = header_array[2] if len(header_array) >= 3 else 'training'
         fasta_sequences.append([name, sequence, label, label_train])
     return fasta_sequences
 
